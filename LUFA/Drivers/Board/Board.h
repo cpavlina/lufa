@@ -83,6 +83,8 @@
 			#include "AVR8/TEENSY/Board.h"
 		#elif (BOARD == BOARD_USBTINYMKII)
 			#include "AVR8/USBTINYMKII/Board.h"
+        #elif (BOARD == BOARD_ISPMINI)
+            #include "AVR8/ISPMINI/Board.h"
 		#elif (BOARD == BOARD_BENITO)
 			#include "AVR8/BENITO/Board.h"
 		#elif (BOARD == BOARD_JMDBU2)

@@ -136,6 +136,8 @@
 			#include "AVR8/TEENSY/LEDs.h"
 		#elif (BOARD == BOARD_USBTINYMKII)
 			#include "AVR8/USBTINYMKII/LEDs.h"
+        #elif (BOARD == BOARD_ISPMINI)
+            #include "AVR8/ISPMINI/LEDs.h"
 		#elif (BOARD == BOARD_BENITO)
 			#include "AVR8/BENITO/LEDs.h"
 		#elif (BOARD == BOARD_JMDBU2)

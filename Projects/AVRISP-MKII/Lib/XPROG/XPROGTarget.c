@@ -50,6 +50,12 @@ void XPROGTarget_EnableTargetPDI(void)
 	DDRD |=  (1 << 5) | (1 << 3);
 	DDRD &= ~(1 << 2);
 
+    /* Clear TPI mode pin if necessary */
+#ifdef SELECT_TPI_MASK
+    SELECT_TPI_DDR |= SELECT_TPI_MASK;
+    SELECT_TPI_PORT &= ~SELECT_TPI_MASK;
+#endif
+
 	/* Set DATA line high for at least 90ns to disable /RESET functionality */
 	PORTD |= (1 << 3);
 	_delay_us(100);
@@ -68,6 +74,12 @@ void XPROGTarget_EnableTargetPDI(void)
 void XPROGTarget_EnableTargetTPI(void)
 {
 	IsSending = false;
+
+    /* Set TPI mode pin if necessary */
+#ifdef SELECT_TPI_MASK
+    SELECT_TPI_DDR |= SELECT_TPI_MASK;
+    SELECT_TPI_PORT |= SELECT_TPI_MASK;
+#endif
 
 	/* Set /RESET line low for at least 400ns to enable TPI functionality */
 	AUX_LINE_DDR  |=  AUX_LINE_MASK;
@@ -103,6 +115,9 @@ void XPROGTarget_DisableTargetPDI(void)
 	/* Tristate all pins */
 	DDRD  &= ~((1 << 5) | (1 << 3));
 	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
+#ifdef SELECT_TPI_MASK
+    SELECT_TPI_DDR &= ~SELECT_TPI_MASK;
+#endif
 }
 
 /** Disables the target's TPI interface, exits programming mode and starts the target's application. */
@@ -124,6 +139,10 @@ void XPROGTarget_DisableTargetTPI(void)
 	/* Tristate target /RESET line */
 	AUX_LINE_DDR  &= ~AUX_LINE_MASK;
 	AUX_LINE_PORT &= ~AUX_LINE_MASK;
+
+#ifdef SELECT_TPI_MASK
+    SELECT_TPI_DDR &= ~SELECT_TPI_MASK;
+#endif
 }
 
 /** Sends a byte via the USART.

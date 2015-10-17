@@ -166,6 +166,11 @@ void ISPTarget_EnableTargetISP(void)
 
 		ISPTarget_ConfigureSoftwareSPI(SCKDuration);
 	}
+
+#ifdef SELECT_TPI_MASK
+    SELECT_TPI_DDR |= SELECT_TPI_MASK;
+    SELECT_TPI_PORT &= ~SELECT_TPI_PORT;
+#endif
 }
 
 /** Shuts down the current selected SPI driver (hardware or software, depending on the selected ISP speed) so that no
@@ -186,6 +191,11 @@ void ISPTarget_DisableTargetISP(void)
 		 * re-purposed for software SPI */
 		ISPTarget_ConfigureRescueClock();
 	}
+
+#ifdef SELECT_TPI_MASK
+    SELECT_TPI_DDR &= ~SELECT_TPI_MASK;
+    SELECT_TPI_PORT &= ~SELECT_TPI_PORT;
+#endif
 }
 
 /** Configures the AVR to produce a 4MHz rescue clock out of the OCR1A pin of the AVR, so

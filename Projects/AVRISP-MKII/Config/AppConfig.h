@@ -48,9 +48,20 @@
 	#define AUX_LINE_DDR               DDRB
 	#if (BOARD == BOARD_U2S)
 		#define AUX_LINE_MASK          (1 << 0)
+    #elif (BOARD == ISPMINI)
+        #define AUX_LINE_MASK          (1 << 7)
 	#else
 		#define AUX_LINE_MASK          (1 << 4)
 	#endif
+
+    // ISPMINI uses a select pin to multiplex signals and fit multiple protocols
+    // on one header.
+    #if (BOARD == ISPMINI)
+        #define SELECT_TPI_PORT         PORTB
+        #define SELECT_TPI_PIN          PINB
+        #define SELECT_TPI_DDR          DDRB
+        #define SELECT_TPI_MASK         (1 << 4)
+    #endif
 
 	#define ENABLE_ISP_PROTOCOL
 	#define ENABLE_XPROG_PROTOCOL

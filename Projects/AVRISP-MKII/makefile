@@ -11,9 +11,9 @@
 
 # Run "make help" for target help.
 
-MCU          = at90usb1287
+MCU          = at90usb162
 ARCH         = AVR8
-BOARD        = USBKEY
+BOARD        = ISPMINI
 F_CPU        = 8000000
 F_USB        = $(F_CPU)
 OPTIMIZATION = s
